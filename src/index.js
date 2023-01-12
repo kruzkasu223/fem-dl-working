@@ -31,7 +31,7 @@ const exitOnCancel = (state) => {
 
 const {
   COURSE_SLUG,
-  PREFERED_QUALITY,
+  PREFERRED_QUALITY,
   DOWNLOAD_DIR,
   EXTENSION,
   INCLUDE_CAPTION,
@@ -50,13 +50,13 @@ const {
     type: "password",
     name: "TOKEN",
     message:
-      'Paste the value of "wordpress_logged_in_xxx" cookie (visit: frontendmasters.com)',
+      'Paste the value of "fem_auth_mod" cookie (visit: frontendmasters.com)',
     format: (v) => (decodeURIComponent(v) === v ? encodeURIComponent(v) : v),
     onState: exitOnCancel,
   },
   {
     type: "select",
-    name: "PREFERED_QUALITY",
+    name: "PREFERRED_QUALITY",
     message: "Which stream quality do you prefer?",
     choices: [2160, 1440, 1080, 720, 360].map((value) => ({
       title: value + "p",
@@ -135,7 +135,7 @@ const [lessons, totalEpisodes] = course.lessonElements.reduce(
 
 let i = 1,
   x = totalEpisodes,
-  QUALITY = PREFERED_QUALITY
+  QUALITY = PREFERRED_QUALITY
 
 const coursePath = safeJoin(DOWNLOAD_DIR, course.title)
 
@@ -180,13 +180,13 @@ for (const [lesson, episodes] of Object.entries(lessons)) {
       if (typeof QUALITY === "undefined") {
         console.warn(`This shouldn't happen, please fill an issue`)
         console.warn(
-          `Selected Quality: ${PREFERED_QUALITY}\nCourse: ${COURSE_SLUG}\nm3u8: ${availableQualities}`
+          `Selected Quality: ${PREFERRED_QUALITY}\nCourse: ${COURSE_SLUG}\nm3u8: ${availableQualities}`
         )
         process.exit()
       }
     }
 
-    if (QUALITY !== PREFERED_QUALITY) {
+    if (QUALITY !== PREFERRED_QUALITY) {
       const [formattedQuality] = Object.entries(QUALITY_FORMAT).find(
         ([_, value]) => value === QUALITY
       )
