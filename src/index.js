@@ -25,8 +25,11 @@ import ora from "ora"
 import colors from "kleur"
 import os from "node:os"
 import * as dotenv from "dotenv"
+import https, { Agent } from "node:https"
 
 dotenv.config()
+
+https.globalAgent = new Agent({ keepAlive: true })
 
 // const exitOnCancel = (state) => {
 //   if (state.aborted) process.nextTick(() => process.exit(0))
